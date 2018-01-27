@@ -1,7 +1,7 @@
 react-native-sensor-manager
 ============================
 
-Wrapper for react-native. Accelerometer, Gyroscope, Magnetometer, Orientation, Step Counter, Thermometer, LightSensor, and Proximity Sensor are supported for now.
+Wrapper for react-native. Accelerometer, Gyroscope, Magnetometer, Step Counter, Thermometer are supported for now.
 
 Add it to your project
 -------------------------
@@ -12,7 +12,7 @@ Add it to your project
 
 `rnpm link`
 
-### Option: Manually (try it if an runtime error occurs after `nrpm link`)
+### Option: Manually
 
 Make alterations to the following files:
 
@@ -34,7 +34,7 @@ dependencies {
 }
 ```
 
-* register module (in MainApplication.java)
+* register module (in MainActivity.java)
 
   * For react-native below 0.19.0 (use `cat ./node_modules/react-native/package.json | grep version`)
 
@@ -74,7 +74,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
 ```java
 import com.sensormanager.SensorManagerPackage; // <------ add package
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainActivity extends ReactActivity {
    // ...
     @Override
     protected List<ReactPackage> getPackages() {
@@ -94,13 +94,13 @@ import React, {
   DeviceEventEmitter // will emit events that you can listen to
 } from 'react-native';
 
-import { SensorManager } from 'NativeModules';
+var mSensorManager = require('NativeModules').SensorManager;
 ```
 
 
 ### Accelerometer
 ```js
-SensorManager.startAccelerometer(100); // To start the accelerometer with a minimum delay of 100ms between events.
+mSensorManager.startAccelerometer(100); // To start the accelerometer with a minimum delay of 100ms between events.
 DeviceEventEmitter.addListener('Accelerometer', function (data) {
   /**
   * data.x
@@ -108,7 +108,7 @@ DeviceEventEmitter.addListener('Accelerometer', function (data) {
   * data.z
   **/
 });
-SensorManager.stopAccelerometer();
+mSensorManager.stopAccelerometer();
 ```
 
 ### Gyroscope
@@ -120,13 +120,13 @@ DeviceEventEmitter.addListener('Gyroscope', function (data) {
   * data.z
   **/
 });
-SensorManager.startGyroscope(100);
-SensorManager.stopGyroscope();
+mSensorManager.startGyroscope(100);
+mSensorManager.stopGyroscope();
 ```
 
 ### Magnetometer
 ```js
-SensorManager.startMagnetometer(100);
+mSensorManager.startMagnetometer(100);
 DeviceEventEmitter.addListener('Magnetometer', function (data) {
   /**
   * data.x
@@ -134,12 +134,12 @@ DeviceEventEmitter.addListener('Magnetometer', function (data) {
   * data.z
   **/
 });
-SensorManager.stopMagnetometer();
+mSensorManager.stopMagnetometer();
 ```
 
 ### Orientation
 ```js
-SensorManager.startOrientation(100);
+mSensorManager.startOrientation(100);
 DeviceEventEmitter.addListener('Orientation', function (data) {
   /**
   * data.azimuth
@@ -147,46 +147,46 @@ DeviceEventEmitter.addListener('Orientation', function (data) {
   * data.roll
   **/
 });
-SensorManager.stopOrientation();
+mSensorManager.stopOrientation();
 ```
 
 ### Step Counter
 ```js
-SensorManager.startStepCounter(1000);
+mSensorManager.startStepCounter(1000);
 DeviceEventEmitter.addListener('StepCounter', function (data) {
   /**
   * data.steps
   **/
 });
-SensorManager.stopStepCounter();
+mSensorManager.stopStepCounter();
 ```
 
 ### Thermometer
 ```js
-SensorManager.startThermometer(1000);
+mSensorManager.startThermometer(1000);
 DeviceEventEmitter.addListener('Thermometer', function (data) {
   /**
   * data.temp
   **/
 });
-SensorManager.stopThermometer();
+mSensorManager.stopThermometer();
 ```
 
 ### LightSensor
 ```js
-SensorManager.startLightSensor(100);
+mSensorManager.startLightSensor(100);
 DeviceEventEmitter.addListener('LightSensor', function (data) {
   /**
   * data.light
   **/
 });
-SensorManager.stopLightSensor();
+mSensorManager.stopLightSensor();
 ```
 
 
 ### Proximity Sensor
 ```js
-SensorManager.startProximity(100);
+mSensorManager.startProximity(100);
 DeviceEventEmitter.addListener('Proximity', function (data) {
   /**
   * data.isNear: [Boolean] A flag representing whether something is near the screen.
@@ -194,5 +194,5 @@ DeviceEventEmitter.addListener('Proximity', function (data) {
   * data.maxRange: [Number] The maximum range of the sensor.
   **/
 });
-SensorManager.stopProximity();
+mSensorManager.stopProximity();
 ```

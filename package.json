@@ -1,15 +1,66 @@
 {
-  "name": "react-native-sensor-manager",
-  "version": "0.1.10",
+  "_args": [
+    [
+      {
+        "raw": "react-native-sensor-manager@^0.1.10",
+        "scope": null,
+        "escapedName": "react-native-sensor-manager",
+        "name": "react-native-sensor-manager",
+        "rawSpec": "^0.1.10",
+        "spec": ">=0.1.10 <0.2.0",
+        "type": "range"
+      },
+      "/Users/jordanestes/Desktop/agi-android"
+    ]
+  ],
+  "_from": "react-native-sensor-manager@>=0.1.10 <0.2.0",
+  "_id": "react-native-sensor-manager@0.1.10",
+  "_inCache": true,
+  "_location": "/react-native-sensor-manager",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/react-native-sensor-manager-0.1.10.tgz_1474630422151_0.8052905979566276"
+  },
+  "_npmUser": {
+    "name": "kprimice",
+    "email": "kevin.primicerio@gmail.com"
+  },
+  "_npmVersion": "1.4.21",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "react-native-sensor-manager@^0.1.10",
+    "scope": null,
+    "escapedName": "react-native-sensor-manager",
+    "name": "react-native-sensor-manager",
+    "rawSpec": "^0.1.10",
+    "spec": ">=0.1.10 <0.2.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-sensor-manager/-/react-native-sensor-manager-0.1.10.tgz",
+  "_shasum": "c228280d67fddb668e715b4d7b823188de504da8",
+  "_shrinkwrap": null,
+  "_spec": "react-native-sensor-manager@^0.1.10",
+  "_where": "/Users/jordanestes/Desktop/agi-android",
+  "author": {
+    "name": "Kevin Primicerio",
+    "email": "kevin.primicerio@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/kprimice/react-native-sensor-manager/issues"
+  },
+  "dependencies": {},
   "description": "A react-native module that allows you to use the accelerometer, gyroscope and magnetometer and Android devices\"",
-  "main": "index.js",
-  "scripts": {
-    "test": "make test"
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "c228280d67fddb668e715b4d7b823188de504da8",
+    "tarball": "https://registry.npmjs.org/react-native-sensor-manager/-/react-native-sensor-manager-0.1.10.tgz"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kprimice/react-native-sensor-manager.git"
-  },
+  "gitHead": "c3a3c36a30992e33ae7ed6385f50c6e2f6b60d9b",
+  "homepage": "https://github.com/kprimice/react-native-sensor-manager#readme",
   "keywords": [
     "react-native",
     "android",
@@ -20,10 +71,24 @@
     "thermometer",
     "step-counter"
   ],
-  "author": "Kevin Primicerio <kevin.primicerio@gmail.com>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kprimice/react-native-sensor-manager/issues"
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "kprimice",
+      "email": "kevin.primicerio@gmail.com"
+    }
+  ],
+  "name": "react-native-sensor-manager",
+  "optionalDependencies": {},
+  "readme": "react-native-sensor-manager\n============================\n\nWrapper for react-native. Accelerometer, Gyroscope, Magnetometer, Step Counter, Thermometer are supported for now.\n\nAdd it to your project\n-------------------------\n\n`$ npm i react-native-sensor-manager --save`\n\n### Option: With [`rnpm`](https://github.com/rnpm/rnpm)\n\n`rnpm link`\n\n### Option: Manually\n\nMake alterations to the following files:\n\n* `android/settings.gradle`\n\n```gradle\n...\ninclude ':react-native-sensor-manager'\nproject(':react-native-sensor-manager').projectDir = new File(settingsDir, '../node_modules/react-native-sensor-manager/android')\n```\n\n* `android/app/build.gradle`\n\n```gradle\n...\ndependencies {\n    ...\n    compile project(':react-native-sensor-manager')\n}\n```\n\n* register module (in MainActivity.java)\n\n  * For react-native below 0.19.0 (use `cat ./node_modules/react-native/package.json | grep version`)\n\n```java\nimport com.sensormanager.SensorManagerPackage; // <------ add package\n\npublic class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {\n\n  ......\n\n  @Override\n  protected void onCreate(Bundle savedInstanceState) {\n    super.onCreate(savedInstanceState);\n    mReactRootView = new ReactRootView(this);\n\n    mReactInstanceManager = ReactInstanceManager.builder()\n      .setApplication(getApplication())\n      .setBundleAssetName(\"index.android.bundle\")\n      .setJSMainModuleName(\"index.android\")\n      .addPackage(new MainReactPackage())\n      .addPackage(new SensorManagerPackage())      // <------- add package\n      .setUseDeveloperSupport(BuildConfig.DEBUG)\n      .setInitialLifecycleState(LifecycleState.RESUMED)\n      .build();\n\n    mReactRootView.startReactApplication(mReactInstanceManager, \"ExampleRN\", null);\n\n    setContentView(mReactRootView);\n  }\n\n  ......\n\n}\n```\n\n  * For react-native 0.19.0 and higher\n```java\nimport com.sensormanager.SensorManagerPackage; // <------ add package\n\npublic class MainActivity extends ReactActivity {\n   // ...\n    @Override\n    protected List<ReactPackage> getPackages() {\n      return Arrays.<ReactPackage>asList(\n        new MainReactPackage(), // <---- add comma\n        new SensorManagerPackage() // <---------- add package\n      );\n    }\n```\n\nApi\n----\n\n### Setup\n```js\nimport React, {\n  DeviceEventEmitter // will emit events that you can listen to\n} from 'react-native';\n\nvar mSensorManager = require('NativeModules').SensorManager;\n```\n\n\n### Accelerometer\n```js\nmSensorManager.startAccelerometer(100); // To start the accelerometer with a minimum delay of 100ms between events.\nDeviceEventEmitter.addListener('Accelerometer', function (data) {\n  /**\n  * data.x\n  * data.y\n  * data.z\n  **/\n});\nmSensorManager.stopAccelerometer();\n```\n\n### Gyroscope\n```js\nDeviceEventEmitter.addListener('Gyroscope', function (data) {\n  /**\n  * data.x\n  * data.y\n  * data.z\n  **/\n});\nmSensorManager.startGyroscope(100);\nmSensorManager.stopGyroscope();\n```\n\n### Magnetometer\n```js\nmSensorManager.startMagnetometer(100);\nDeviceEventEmitter.addListener('Magnetometer', function (data) {\n  /**\n  * data.x\n  * data.y\n  * data.z\n  **/\n});\nmSensorManager.stopMagnetometer();\n```\n\n### Orientation\n```js\nmSensorManager.startOrientation(100);\nDeviceEventEmitter.addListener('Orientation', function (data) {\n  /**\n  * data.azimuth\n  * data.pitch\n  * data.roll\n  **/\n});\nmSensorManager.stopOrientation();\n```\n\n### Step Counter\n```js\nmSensorManager.startStepCounter(1000);\nDeviceEventEmitter.addListener('StepCounter', function (data) {\n  /**\n  * data.steps\n  **/\n});\nmSensorManager.stopStepCounter();\n```\n\n### Thermometer\n```js\nmSensorManager.startThermometer(1000);\nDeviceEventEmitter.addListener('Thermometer', function (data) {\n  /**\n  * data.temp\n  **/\n});\nmSensorManager.stopThermometer();\n```\n\n### LightSensor\n```js\nmSensorManager.startLightSensor(100);\nDeviceEventEmitter.addListener('LightSensor', function (data) {\n  /**\n  * data.light\n  **/\n});\nmSensorManager.stopLightSensor();\n```\n\n\n### Proximity Sensor\n```js\nmSensorManager.startProximity(100);\nDeviceEventEmitter.addListener('Proximity', function (data) {\n  /**\n  * data.isNear: [Boolean] A flag representing whether something is near the screen.\n  * data.value: [Number] The raw value returned by the sensor (usually distance in cm).\n  * data.maxRange: [Number] The maximum range of the sensor.\n  **/\n});\nmSensorManager.stopProximity();\n```\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kprimice/react-native-sensor-manager.git"
   },
-  "homepage": "https://github.com/kprimice/react-native-sensor-manager#readme"
+  "scripts": {
+    "test": "make test"
+  },
+  "version": "0.1.10"
 }
