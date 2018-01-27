@@ -116,22 +116,26 @@ public class OrientationRecord implements SensorEventListener {
           // float heading = (float)((Math.toDegrees(orientation[0])) % 360.0f);
           // float pitch = (float)((Math.toDegrees(orientation[1])) % 360.0f);
           // float roll = (float)((Math.toDegrees(orientation[2])) % 360.0f);
+          
+          float heading = (float)((Math.toDegrees(mOrientationData[0])) % 360.0f);
+          float pitch = (float)((Math.toDegrees(mOrientationData[1])) % 360.0f);
+          float roll = (float)((Math.toDegrees(mOrientationData[2])) % 360.0f);
 
-          float heading = (float)(mOrientationData[0]);
-          float pitch = (float)(mOrientationData[1]);
-          float roll = (float)(mOrientationData[2]);
+          // float heading = (float)(mOrientationData[0]);
+          // float pitch = (float)(mOrientationData[1]);
+          // float roll = (float)(mOrientationData[2]);
 
-          // if (heading < 0) {
-          //   heading = 360 - (0 - heading);
-          // }
-          //
-          // if (pitch < 0) {
-          //   pitch = 360 - (0 - pitch);
-          // }
-          //
-          // if (roll < 0) {
-          //   roll = 360 - (0 - roll);
-          // }
+          if (heading < 0) {
+            heading = 360 - (0 - heading);
+          }
+          
+          if (pitch < 0) {
+            pitch = 360 - (0 - pitch);
+          }
+          
+          if (roll < 0) {
+            roll = 360 - (0 - roll);
+          }
 
           map.putDouble("azimuth", heading);
           map.putDouble("pitch", pitch);
