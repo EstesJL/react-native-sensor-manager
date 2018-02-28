@@ -23,6 +23,7 @@ public class MagnetometerRecord implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor mMagnetometer;
     private long lastUpdate = 0;
+    private long lastUpdateCompass = 0;
     private int i = 0, n = 0;
 	private int delay;
 
@@ -51,8 +52,8 @@ public class MagnetometerRecord implements SensorEventListener {
 	private void sendEvent(String eventName, @Nullable WritableMap params)
 	{
 		try {
-			mReactContext 
-				.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class) 
+			mReactContext
+				.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
 				.emit(eventName, params);
 		} catch (RuntimeException e) {
 			Log.e("ERROR", "java.lang.RuntimeException: Trying to invoke JS before CatalystInstance has been set!");
@@ -72,6 +73,7 @@ public class MagnetometerRecord implements SensorEventListener {
 				map.putDouble("x", sensorEvent.values[0]);
 				map.putDouble("y", sensorEvent.values[1]);
 				map.putDouble("z", sensorEvent.values[2]);
+        map.putInt("accuracy", sensorEvent.accuracy);
 				sendEvent("Magnetometer", map);
                 lastUpdate = curTime;
             }
@@ -80,5 +82,15 @@ public class MagnetometerRecord implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+      WritableMap map = mArguments.createMap();
+      if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+        long curTime = System.currentTimeMillis();
+        if ((curTime - lastUpdateCompass) > 92) {
+            i = 0;
+          map.putInt("accuracy", accuracy);
+        sendEvent("CompassAccuracyChange", map);
+                lastUpdateCompass = curTime;
+            }
+        }
     }
 }
